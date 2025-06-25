@@ -99,7 +99,7 @@ Coloque o Pico W em modo bootloader e arraste o arquivo `.uf2` gerado.
 ## Referências
 
 - [RP2040 Datasheet](https://www.raspberrypi.com/documentation/microcontrollers/)
-- [Battery Management Systems – He et al.](https://doi.org/10.1016/j.apenergy.2011.08.020)
+- PLETT, Gregory L. Battery Management Systems, Volume I: Battery Modeling. Artech House, 2015.
 - Dados experimentais fornecidos por colaboradores do projeto BMS
 
 ## Agradecimentos

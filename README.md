@@ -39,7 +39,7 @@ O SoC (State of Charge) é uma métrica fundamental para o gerenciamento eficien
 
 O sistema utiliza como base um modelo matemático equivalente da célula LFP, construído a partir de testes experimentais. Esse modelo consiste em um ramo RC em série com uma resistência R₀, representando a dinâmica da célula.
 
-A corrente medida é usada como entrada para o sistema, enquanto a tensão e a temperatura são utilizadas como observações no EKF. Um método auxiliar de Coulomb Counting também é implementado para alimentar o modelo com a estimativa de SoC baseada em corrente integrada.
+A corrente medida é usada como entrada para o sistema, enquanto a tensão e a temperatura são utilizadas como observações no EKF. Um método auxiliar de Coulomb Counting também é implementado para alimentar o modelo com a estimativa de SoC baseada em corrente integrada, para que o modelo funcione corretamente, é necessário que ele seja executado em realtime, a uma amostragem de 1 segundo.
 
 
 ### Modelo RC Simplificado

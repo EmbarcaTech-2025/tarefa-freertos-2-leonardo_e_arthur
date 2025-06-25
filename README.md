@@ -35,6 +35,9 @@ O SoC (State of Charge) é uma métrica fundamental para o gerenciamento eficien
   - Biblioteca gráfica para SSD1306
   - FreeRTOS (opcional, para tarefas paralelas)
 
+![Sistema completo de estimação de SoC](images/sistema%20completo.jpg)
+
+
 ## Funcionamento
 
 O sistema utiliza como base um modelo matemático equivalente da célula LFP, construído a partir de testes experimentais. Esse modelo consiste em um ramo RC em série com uma resistência R₀, representando a dinâmica da célula.
@@ -63,6 +66,8 @@ O display exibe em tempo real:
 - Tensão da bateria
 - Corrente instantânea
 - Temperatura
+
+![Visualização dos dados da bateria em tempo real](images/visualização%20dos%20dados.jpg)
 
 ## Estrutura do Projeto
 

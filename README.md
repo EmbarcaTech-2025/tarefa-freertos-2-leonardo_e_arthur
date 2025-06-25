@@ -1,17 +1,110 @@
 
 # Tarefa: Roteiro de FreeRTOS #2 - EmbarcaTech 2025
 
-Autor: **Insira Seu Nome**
+Autores: **Leonardo Takehana** e **Arthur Damacena**
 
 Curso: Residência Tecnológica em Sistemas Embarcados
 
 Instituição: EmbarcaTech - HBr
 
-Campinas, ___ de 2025
+Brasília, junho de 2025
 
 ---
 
-<!-- INSIRA O CONTEÚDO DO SEU README AQUI! -->
+
+# Estimativa de Estado de Carga (SoC) de Bateria LFP com EKF no Raspberry Pi Pico W
+
+Este projeto implementa um estimador de Estado de Carga (SoC) para baterias LiFePO₄ (LFP), utilizando Filtro de Kalman Estendido (EKF), embarcado em um **Raspberry Pi Pico W** com a plataforma **BitDogLab**. A estimativa é exibida em tempo real em um display OLED.
+
+## Visão Geral
+
+O SoC (State of Charge) é uma métrica fundamental para o gerenciamento eficiente de baterias. Neste projeto, a estimativa é baseada em um modelo matemático da célula LFP, obtido por meio de testes experimentais. As medições de corrente, tensão e temperatura são utilizadas como entradas para o EKF.
+
+## Plataforma
+
+- **Microcontrolador**: Raspberry Pi Pico W (RP2040)
+- **Base**: BitDogLab
+- **Sensores**:
+  - Corrente: ACS712 (30A)
+  - Temperatura: Termistor NTC (com divisor resistivo)
+  - Tensão: Divisor resistivo adequado ao ADC do Pico
+- **Display**: OLED (ex: SSD1306 via I2C)
+- **Software**:
+  - SDK oficial do Raspberry Pi Pico (C/C++)
+  - Biblioteca customizada de EKF
+  - Biblioteca gráfica para SSD1306
+  - FreeRTOS (opcional, para tarefas paralelas)
+
+## Funcionamento
+
+O sistema utiliza como base um modelo matemático equivalente da célula LFP, construído a partir de testes experimentais. Esse modelo consiste em um ramo RC em série com uma resistência R₀, representando a dinâmica da célula.
+
+A corrente medida é usada como entrada para o sistema, enquanto a tensão e a temperatura são utilizadas como observações no EKF. Um método auxiliar de Coulomb Counting também é implementado para alimentar o modelo com a estimativa de SoC baseada em corrente integrada.
+
+
+### Modelo RC Simplificado
+
+![Modelo Bateria](images/ecm.png)
+
+A tensão terminal da célula é modelada como:
+
+```math
+V_t = OCV(SoC) - I * R₀ - V_RC
+```
+
+Onde:
+- `OCV(SoC)` é a curva de tensão em circuito aberto obtida experimentalmente
+- `V_RC` é a queda de tensão no ramo RC
+
+## Visualização OLED
+
+O display exibe em tempo real:
+- SoC estimado (via EKF)
+- Tensão da bateria
+- Corrente instantânea
+- Temperatura
+
+## Estrutura do Projeto
+
+```bash
+.
+├── include/
+│   ├── adc_read.c/.h           # Leitura de sensores analógicos
+│   ├── battery_model.c/.h      # Implementação do modelo da célula
+│   ├── ekf.c/.h                # Estimador de Kalman Estendido
+│   ├── ssd1306.c/.h            # Interface gráfica com display OLED
+│   ├── font.h                  # Fonte bitmap para o display
+│   ├── FreeRTOSConfig.h        # (opcional) Configuração do FreeRTOS
+├── main.c                      # Código principal
+├── CMakeLists.txt
+├── pico_sdk_import.cmake
+├── .gitignore
+└── README.md
+```
+
+## Compilação e Upload
+
+### Compilação
+
+```bash
+mkdir build && cd build
+cmake ..
+make
+```
+
+### Upload para o Pico W
+
+Coloque o Pico W em modo bootloader e arraste o arquivo `.uf2` gerado.
+
+## Referências
+
+- [RP2040 Datasheet](https://www.raspberrypi.com/documentation/microcontrollers/)
+- [Battery Management Systems – He et al.](https://doi.org/10.1016/j.apenergy.2011.08.020)
+- Dados experimentais fornecidos por colaboradores do projeto BMS
+
+## Agradecimentos
+
+Este projeto agradece ao **Projeto BMS**, à **FUNDEP**, ao **Prof. Renato Vilela Lopes** e ao **mestrando Camilo Solis** pela disponibilização do modelo experimental da célula LFP, que foi essencial para o desenvolvimento e validação do estimador EKF.
 
 ---
 

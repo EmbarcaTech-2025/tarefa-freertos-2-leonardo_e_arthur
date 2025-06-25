@@ -84,6 +84,18 @@ O display exibe em tempo real:
 
 ## Compilação e Upload
 
+1.  **Clonar o Repositório:**
+    *   Abra um terminal ou prompt de comando.
+    *   Clone o repositório utilizando o comando:
+        ```bash
+        git clone --recurse-submodules https://github.com/EmbarcaTech-2025/tarefa-freertos-2-leonardo_e_arthur.git
+        ```
+    *   A flag `--recurse-submodules` garante que o FreeRTOS (que é um submódulo) seja clonado junto.
+    *   Se você já clonou o repositório sem `--recurse-submodules`, navegue até a pasta do projeto e execute:
+        ```bash
+        git submodule update --init --recursive
+        ```
+
 ### Compilação
 
 ```bash
